@@ -11,6 +11,7 @@ dotenv.config();
 const PORT = process.env.PORT || 5001;
 app.use(express.json());
 app.use(cookieParser());
+
 const allowedOrigins = [
   "http://localhost:5173",
   "https://whatsapp-client-nine.vercel.app",
