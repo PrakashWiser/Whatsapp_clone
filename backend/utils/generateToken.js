@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+
 const generateToken = (userId, res) => {
   const token = jwt.sign(
     { userId },
@@ -8,8 +9,9 @@ const generateToken = (userId, res) => {
 
   res.cookie("token", token, {
     httpOnly: true,
-    secure: true, // Required for HTTPS
-    sameSite: "None", // Also required for cross-origin
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
+    maxAge: 7 * 24 * 60 * 60 * 1000, 
   });
 
   if (process.env.NODE_ENV !== "production") {
