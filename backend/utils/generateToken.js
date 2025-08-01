@@ -6,11 +6,10 @@ const generateToken = (userId, res) => {
     { expiresIn: "7d" }
   );
 
-  res.cookie("jwt", token, {
+  res.cookie("token", token, {
     httpOnly: true,
-    sameSite: process.env.NODE_ENV === "production" ? "None" : "Lax",
-    secure: process.env.NODE_ENV === "production",
-    maxAge: 7 * 24 * 60 * 60 * 1000,
+    secure: true, // Required for HTTPS
+    sameSite: "None", // Also required for cross-origin
   });
 
   if (process.env.NODE_ENV !== "production") {
