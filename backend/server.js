@@ -11,25 +11,16 @@ dotenv.config();
 const PORT = process.env.PORT || 5001;
 app.use(express.json());
 app.use(cookieParser());
-
 const allowedOrigins = [
   "http://localhost:5173",
   "https://whatsapp-client-nine.vercel.app",
 ];
-
 app.use(
   cors({
-    origin: function (origin, callback) {
-      if (!origin || allowedOrigins.includes(origin)) {
-        callback(null, true);
-      } else {
-        callback(new Error("Not allowed by CORS"));
-      }
-    },
+    origin: allowedOrigins,
     credentials: true,
   })
 );
-
 connectDb();
 
 app.use(express.json({ limit: "10mb" }));
